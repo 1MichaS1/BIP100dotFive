@@ -133,7 +133,7 @@ The default growth rate hence follows the same idea as [https://github.com/bitco
 
 Hence the default growth rate of this BIP is not considered to be a very critical parameter, because unlike with BIP-101 and BIP-(103?), a wrong estimation of future growth rates in technology and/or user adoption has no blocking effect on the Bitcoin protocol thanks to the power of miner voting.
 
-===Signaling the Vote in the Block Header's Version Number Field===
+====Signaling the Vote in the Block Header's Version Number Field====
 
 The signaling format is simple and yet very efficient in usage of bit space in the block header. It achieves a voting granularity of 4.4% step increments, which is fine enough, and a range from 1 MB to 60.1 GB, which is fully future safe.
 
