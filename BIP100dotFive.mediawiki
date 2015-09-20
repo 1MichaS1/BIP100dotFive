@@ -84,7 +84,7 @@ This BIP specifies the following parameters for block size limit adjustment step
 * <tt>P90 = 2^(135/512) [~1.2005]: Maximum factor on top of P0, for vote majority of 90%</tt><br><tt><nowiki>[90% majority can force growth to be between -98.9% .. x153.5 p.a.]</nowiki></tt>
 </tt>
 
-Illustartion of maximum possible change of block size limit on top of default growth rate, depending on miner vote majority (percentage in log scale):
+Illustration of maximum possible change of block size limit on top of default growth rate, depending on miner vote majority (percentage in log scale):
 
 <img src=https://cloud.githubusercontent.com/assets/14133304/9979188/e26c133a-5f5e-11e5-8946-f6c848606c9c.png></img>
 
