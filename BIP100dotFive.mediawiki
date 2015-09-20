@@ -88,7 +88,7 @@ Illustration of maximum possible change of block size limit on top of default gr
 <img src=https://cloud.githubusercontent.com/assets/14133304/9979188/e26c133a-5f5e-11e5-8946-f6c848606c9c.png></img>
 
 Possible block size limit evolutions for certain minor majorities (for comparison the growth rates of 17.7% and 41.4% are included) - log scale:
-<img src=https://cloud.githubusercontent.com/assets/14133304/9979437/1163fdca-5f6d-11e5-8184-90672b02b31c.png></img>
+<img src=https://cloud.githubusercontent.com/assets/14133304/9979456/1c47d86e-5f6e-11e5-9bdb-5ce4a26def49.png></img>
 
 
 ==Rationale==
