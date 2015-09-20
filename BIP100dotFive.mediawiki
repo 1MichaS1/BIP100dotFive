@@ -1,6 +1,6 @@
 <pre>
  BIP: 100.5 (number inofficial)
- Title: Progressive Block Size Limit Voting with Default Growth Rate
+ Title: Progressive BlockSizeLimit Vote + Def.Growth
  Author: Michael_S of bitcointalk.org
  Status: Draft
  Type: Standards Track
