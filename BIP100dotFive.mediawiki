@@ -72,7 +72,7 @@ This BIP proposes to replace the fixed 1 MB block size limit with an adaptive li
 *** If Raise_90 < tmp, then set tmp = Lower_90 and force tmp into the interval <nowiki>[P0*P90 ; P0/P90]</nowiki>.
 *** Assign new current_hardLimit = tmp
 
-===Hard-Coded Parameters===
+====Hard-Coded Parameters====
 This BIP specifies the following parameters for block size limit adjustment steps:
 * <tt>P0&nbsp; = 2^(  8/512) [~1.0109]: Default growth factor of block size limit per 2016 blocks</tt><br><tt><nowiki>[+32.5% p.a.]</nowiki></tt>
 * <tt>P55 = 2^(  1/512) [~1.0014]: Maximum factor on top of P0, for vote majority of 55%</tt><br><tt><nowiki>[55% majority can force growth to be between +27.9% .. +37.3% p.a.]</nowiki></tt>
