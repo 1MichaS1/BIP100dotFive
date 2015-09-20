@@ -1,0 +1,177 @@
+<pre>
+ BIP: 100.5 (number inofficial)
+ Title: Progressive Block Size Limit Voting with Default Growth Rate
+ Author: Michael_S of bitcointalk.org
+ Status: Draft
+ Type: Standards Track
+ Created: 2015-09-20
+</pre>
+
+;Copyright notice:
+: This document is placed in the public domain
+
+==Abstract==
+
+This BIP proposes to replace the fixed 1 MB block size limit with an adaptive limit that can float between 1&nbsp;MB and 61&nbsp;GB (temporarily 1..32&nbsp;MB) based on a default growth rate and miner voting. This combines the merits of BIP-100 and BIP-101 within a new generalized mechanism. Both BIP-100 and BIP-101 can be considered special cases of this BIP, depending on the choice of hard-coded parameters.
+
+==Motivation==
+
+# Eliminate 1 MB limit as impediment to adoption.
+# Let the free market establish a natural block size limit equilibrium without the need for future lengthy hard fork discussions.
+# Integration of voting into the protocol should appease the community and make future adaptations of the block size limit a normal process within the protocol, based on market demands and technological evolution. It should give planning security to all stakeholders, while developers can re-focus on other important improvements.
+# Solve the most criticized points of the two most popular BIP proposals for the block size limit issue, namely BIP-100 and BIP-101. It combines the best ideas and properties of BIP-100 and BIP-101 while eliminating their greatest drawbacks. Thereby it is targeted to achieve the greatest community consensus.
+# Little complexity in realization (not more complex than BIP-100).
+# Execute a hard fork network upgrade within safety rails, gathering data and experience for future upgrades.
+# Contain checks-and-balances that users must opt into, to enable system activation and growth.
+# Built-in default growth momentum to help keep Bitcoin in the most decentralized operational area if votes are "undecided".
+# Default growth rate of +1.09% per 2 weeks = +32.5% p.a. = +100% per 2.5 years, to account for technological progress in internet bandwidth and storage. In the presence of too many undecided/passive miners, the system should at least partly grow along with technological advances, to avoid a deadlock and a change of the system to the worse. Note that actual long-term growth of internet bandwidth is more in the area of 50% p.a. acc. to [http://www.nngroup.com/articles/law-of-bandwidth Nielssen's law of internet bandwidth]
+# Adaptive growth: A small..large majority (55%..90%) is required to deviate from the default growth rate a little..a lot, thereby avoiding a permanent deadlock if miner majority fails to reach a required limit.
+
+==Specification==
+
+# Replace static 1 MB block size hard limit with a floating limit ("hardLimit").
+# hardLimit floats within the range 1 MB..60.1 GB<br>(temporary limit might be put to 32 MB, to be removed in a later hard fork).
+# Initial value of hardLimit is 1 MB, preserving current system.
+# The parameters <nowiki>[P0, P55, P60, P65, P70, P75, P80, P90]</nowiki> are hard-coded as defined in the sub-section "Hard-Coded Parameters" below.
+# By default, hardLimit is increased by the factor P0 every 2016 blocks.
+# Desired hardLimit is voted for by encoding a proposed value as "uint8" within bits 16..23 of the 32-bit (bits 0..31) version number of the block header.
+## Votes refer to a byte value, encoded by an 8 bit value "V" as follows:<br>&nbsp;&nbsp;&nbsp;byte_value = floor(2^(V/16)*1,000,000),<br>where V is the 8-bit vote value from 0..254. V=255 is a special value and means "neutral vote".  
+## A new hardLimit is calculated at each difficulty adjustment period (2016 blocks), and applies to the next 2016 blocks.
+## Calculation:
+*** "Neutral votes" are counted as votes for the default hardLimit increase, i.e. they are counted as votes for current_hardLimit*P0.
+*** Sort the votes from the previous 2,016 blocks from lowest to highest.
+*** Value Raise_90 is defined as the 202th lowest vote from the sorted list of 2,016 votes (10th percentile).
+*** Value Raise_80 is defined as the 404th lowest vote from the sorted list of 2,016 votes (20th percentile).
+*** Value Raise_75 is defined as the 505th lowest vote from the sorted list of 2,016 votes (25th percentile).
+*** Value Raise_70 is defined as the 605th lowest vote from the sorted list of 2,016 votes (30th percentile).
+*** Value Raise_65 is defined as the 706th lowest vote from the sorted list of 2,016 votes (35th percentile).
+*** Value Raise_60 is defined as the 807th lowest vote from the sorted list of 2,016 votes (40th percentile).
+*** Value Raise_55 is defined as the 908th lowest vote from the sorted list of 2,016 votes (45th percentile).
+*** Value Lower_55 is defined as the 1109th lowest vote from the sorted list of 2,016 votes (55th percentile).
+*** Value Lower_60 is defined as the 1210th lowest vote from the sorted list of 2,016 votes (60th percentile).
+*** Value Lower_65 is defined as the 1311th lowest vote from the sorted list of 2,016 votes (65th percentile).
+*** Value Lower_70 is defined as the 1412th lowest vote from the sorted list of 2,016 votes (70th percentile).
+*** Value Lower_75 is defined as the 1513th lowest vote from the sorted list of 2,016 votes (75th percentile).
+*** Value Lower_80 is defined as the 1613th lowest vote from the sorted list of 2,016 votes (80th percentile).
+*** Value Lower_90 is defined as the 1815th lowest vote from the sorted list of 2,016 votes (90th percentile).
+*** Assign temporary variable tmp = current_hardLimit*P0
+*** Perform the following IF conditions in order:
+*** If Raise_55 > tmp, then set tmp = Raise_55 and force tmp into the interval <nowiki>[P0*P55 ; P0/P55]</nowiki>.
+*** If Raise_60 > tmp, then set tmp = Raise_60 and force tmp into the interval <nowiki>[P0*P60 ; P0/P60]</nowiki>.
+*** If Raise_65 > tmp, then set tmp = Raise_65 and force tmp into the interval <nowiki>[P0*P65 ; P0/P65]</nowiki>.
+*** If Raise_70 > tmp, then set tmp = Raise_70 and force tmp into the interval <nowiki>[P0*P70 ; P0/P70]</nowiki>.
+*** If Raise_75 > tmp, then set tmp = Raise_75 and force tmp into the interval <nowiki>[P0*P75 ; P0/P75]</nowiki>.
+*** If Raise_80 > tmp, then set tmp = Raise_80 and force tmp into the interval <nowiki>[P0*P80 ; P0/P80]</nowiki>.
+*** If Raise_90 > tmp, then set tmp = Raise_90 and force tmp into the interval <nowiki>[P0*P90 ; P0/P90]</nowiki>.
+*** If Lower_55 < tmp, then set tmp = Lower_55 and force tmp into the interval <nowiki>[P0*P55 ; P0/P55]</nowiki>.
+*** If Lower_60 < tmp, then set tmp = Lower_60 and force tmp into the interval <nowiki>[P0*P60 ; P0/P60]</nowiki>.
+*** If Lower_65 < tmp, then set tmp = Lower_65 and force tmp into the interval <nowiki>[P0*P65 ; P0/P65]</nowiki>.
+*** If Lower_70 < tmp, then set tmp = Lower_70 and force tmp into the interval <nowiki>[P0*P70 ; P0/P70]</nowiki>.
+*** If Lower_75 < tmp, then set tmp = Lower_75 and force tmp into the interval <nowiki>[P0*P75 ; P0/P75]</nowiki>.
+*** If Raise_80 < tmp, then set tmp = Lower_80 and force tmp into the interval <nowiki>[P0*P80 ; P0/P80]</nowiki>.
+*** If Raise_90 < tmp, then set tmp = Lower_90 and force tmp into the interval <nowiki>[P0*P90 ; P0/P90]</nowiki>.
+*** Assign new current_hardLimit = tmp
+
+===Hard-Coded Parameters===
+This BIP specifies the following parameters for block size limit adjustment steps:
+* <tt>P0&nbsp; = 2^(  8/512) [~1.0109]: Default growth factor of block size limit per 2016 blocks</tt><br><tt><nowiki>[+32.5% p.a.]</nowiki></tt>
+* <tt>P55 = 2^(  1/512) [~1.0014]: Maximum factor on top of P0, for vote majority of 55%</tt><br><tt><nowiki>[55% majority can force growth to be between +27.9% .. +37.3% p.a.]</nowiki></tt>
+* <tt>P60 = 2^(  3/512) [~1.0041]: Maximum factor on top of P0, for vote majority of 60%</tt><br><tt><nowiki>[60% majority can force growth to be between +19.2% .. +47.3% p.a.]</nowiki></tt>
+* <tt>P65 = 2^(  8/512) [~1.0109]: Maximum factor on top of P0, for vote majority of 65%</tt><br><tt><nowiki>[65% majority can force growth to be between +0.0% .. +75.6% p.a.]</nowiki></tt>
+* <tt>P70 = 2^( 20/512) [~1.0274]: Maximum factor on top of P0, for vote majority of 70%</tt><br><tt><nowiki>[70% majority can force growth to be between -34.4% .. +167.9% p.a.]</nowiki></tt>
+* <tt>P75 = 2^( 42/512) [~1.0585]: Maximum factor on top of P0, for vote majority of 75%</tt><br><tt><nowiki>[75% majority can force growth to be between -69.8% .. x5.81 p.a.]</nowiki></tt>
+* <tt>P80 = 2^( 71/512) [~1.1009]: Maximum factor on top of P0, for vote majority of 80%</tt><br><tt><nowiki>[80% majority can force growth to be between -89.1% .. x16.1 p.a.]</nowiki></tt>
+* <tt>P90 = 2^(135/512) [~1.2005]: Maximum factor on top of P0, for vote majority of 90%</tt><br><tt><nowiki>[90% majority can force growth to be between -98.9% .. x153.5 p.a.]</nowiki></tt>
+</tt>
+
+==Rationale==
+
+===Voting and Default Growth Rate===
+
+The rationale for using miner voting in the first place is to "institutionalize" a voting mechanism inside the protocol. This will avoid that "de-facto" voting is taking place in the future via hard-forks for block size limit adaptations while the deployed SW itself does not support any voting. While [https://github.com/jgarzik/bip100/blob/master/bip-0100.mediawiki BIP-100] already proposes miner voting, it has the drawback of being too "coarse": No adjustment happens unless an 80% majority is reached, which may block a necessary adjustment for too long. This BIP therefore allows small block size adjustments already for smaller majorities than 80%, in 7 distinct steps from 55% to 90% majority.
+
+Another drawback of BIP-100 is that "no vote" means "no change of block size". This BIP considers a constant moderate growth rate more "neutral" to Bitcoin characteristics (and more healthy for sustained decentralization) than a stagnation in block size limit, because technology will continuously advance, and so will user adoption in the foreseeable future. So keeping block size limit unchanged in the presence of these changing circumstances means a change of the Bitcoin characteristics e.g. in terms of user experience (more congestion, higher TX fees) and centralization (Bitcoins becoming a settlement system rather than a payment system unnecessarily early in the face of technological progress).
+
+In other words, this BIP's moderate '''default growth momentum''' of the block size limit '''helps to keep the Bitcoin system''' in the center of the "bathtub curve" that defines the area where Bitcoin is most '''decentralized'''. The bathtub curve has the block size limit on the abscissa and the degree of centralization on the ordinate:
+
+
+ Centralization
+ of Bitcoin system
+  .
+ /|\
+  |*                                                                     *
+  |*                                                                     *
+  | *  (a) More users                                                   * (b) Technol. progr.
+  |  * ----> time                                                      *  ----> time
+  |   *                                                               *
+  |    *                        ----> time                           *
+  |      *      Area of best Bitcoin system decentralization       *
+  |        *    |<----------------------------------------->|    *   
+  |             *   *   *   *   *   *   *   *   *   *   *   *
+  '--------------------------------------------------------------------------->
+                                                               block size limit
+
+
+Towards the left of the bathtub curve, centralization increases because with small block sizes only few participants can use Bitcoin directly, so Bitcoin is mainly used as a settlement layer used by big institutions, while the end-users have to use commercial centralized off-blockchain service providers.
+
+Towards the right of the bathtub curve, centralization increases because only very powerful computers with very expensive high-speed internet connection and block verification computation power can afford operating a full node and/or a miner.
+
+As time passes, the bathtub curve will naturally move to the right for two reasons:
+
+(a) The left edge of the bathtub curve will move to the right because Bitcoin usage (number of users) increases.
+
+(b) The right edge of the bathtub curve will move to the right because technology progresses.
+
+Clearly, the miner voting can cause the growth rate to change in either direction. With the proposed hard-coded parameters, a 65% majority can pull growth rate to zero, and a 70% majority can even cause a negative growth rate.
+
+The default growth rate hence follows the same idea as [https://github.com/bitcoin/bips/blob/master/bip-0101.mediawiki BIP-101 (41.4% p.a.)] or [https://gist.github.com/sipa/c65665fc360ca7a176a6 BIP-(103?) (17.7% p.a.)], while an intermediate value of 32.5% p.a. is proposed for this BIP. The disadvantage of BIP-101 and BIP-(103?) is that they try to predict what is the best growth rate for all future. Since neither technological progress nor user adoption and evolutions of the eco-system can be predicted from now into all future, such prediction are prone to errors, possibly requiring further hard-forks (with accompanying discussions) in the future. This BIP instead allows to correct the default growth part by simple miner majority votes.
+
+Hence the default growth rate of this BIP is not considered to be a very critical parameter, because unlike with BIP-101 and BIP-(103?), a wrong estimation of future growth rates in technology and/or user adoption has no blocking effect on the Bitcoin protocol thanks to the power of miner voting.
+
+===Signaling the Vote in the Block Header's Version Number Field===
+
+The signaling format is simple and yet very efficient in usage of bit space in the block header. It achieves a voting granularity of 4.4% step increments, which is fine enough, and a range from 1 MB to 60.1 GB, which is fully future safe.
+
+The reason for putting the vote into the block header rather than into the block's coinbase scriptSig (like in BIP-100) is given by Gavin Andresen in his BIP-101 proposal's comment on BIP-100:
+
+: ''“<nowiki>[...] [Having BIP100's vote in the coinbase scriptSig] is more complex to implement [than BIP101's solution to only have a modification in the header], because [with BIP100] the maximum allowed size for a block depends on information contained in coinbase transactions from previous blocks (which may not be immediately known if block contents are being fetched out-of-order in a 'headers-first' mode)</nowiki>”''
+
+With this BIP's approach to include the vote in the header's version number field, this disadvantage is avoided.
+
+The version number field itself has 32 bits, which is much more than what is actually needed. Hence, one unused byte of this field is used for this BIP's purposes without any negative side effects.
+
+
+==Deployment (same as BIP-100)==
+
+# 75% rule: If 9,000 of the last 12,000 blocks are version 4 or greater, reject invalid version 4 blocks. (testnet4: 501 of last 1000)
+# 95% rule ("Point of no return"): If 11,400 of the last 12,000 blocks are version 4 or greater, reject all version <= 3 blocks. (testnet4: 750 of last 1000)
+# Block version number is calculated after masking out high 16 bits.
+
+==Backward compatibility==
+
+All older clients are not compatible with this change. The first block larger than 1 MB will create a network partition excluding not-upgraded network nodes and miners.
+
+SPV wallets are not affected and require no change or update.
+
+==Acknowledgements==
+
+* Jeff Garzik for proposing a miner voting mechanism for BlockSizeLimit via BIP-100.
+* Gavin Andresen for proposing a fixed growth rate solution for BlockSizeLimit via BIP-101.
+* All participants of pragmatic proposals and discussions around BlockSizeLimit evolution.
+* All Bitcoin developers since 2008/2009 for enabling this discussion in the first place.
+
+==Other Solutions Considered==
+
+[https://github.com/jgarzik/bip100/blob/master/bip-0100.mediawiki Floating block size hard limit] - BIP-100 by Jeff Garzik
+
+[https://github.com/bitcoin/bips/blob/master/bip-0101.mediawiki Increase maximum block size] - BIP-101 by Gavin Andresen
+
+[https://github.com/bitcoin/bips/pull/173/files Increase block size limit to 2MB] - BIP-102 by Jeff Garzik
+
+[https://gist.github.com/sipa/c65665fc360ca7a176a6 Block size following technological growth] - BIP(-103?) by Pieter Wuille
+
+[https://github.com/bitcoin/bips/blob/master/bip-0105.mediawiki Consensus based block size retargeting algorithm] - BIP-105 by BtcDrak
+
+[https://github.com/bitcoin/bips/blob/master/bip-0106.mediawiki Dynamically Controlled Bitcoin Block Size Max Cap] - BIP-106 by Upal Chakraborty
+
+[https://bitcointalk.org/index.php?topic=1078521.0 Elastic block cap with rollover penalties] - by Meni Rosenfeld
