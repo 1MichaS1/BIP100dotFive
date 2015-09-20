@@ -91,7 +91,7 @@ Illustartion of maximum possible change of block size limit on top of default gr
 
 ==Rationale==
 
-===Voting and Default Growth Rate===
+====Voting and Default Growth Rate====
 
 The rationale for using miner voting in the first place is to "institutionalize" a voting mechanism inside the protocol. This will avoid that "de-facto" voting is taking place in the future via hard-forks for block size limit adaptations while the deployed SW itself does not support any voting. While [https://github.com/jgarzik/bip100/blob/master/bip-0100.mediawiki BIP-100] already proposes miner voting, it has the drawback of being too "coarse": No adjustment happens unless an 80% majority is reached, which may block a necessary adjustment for too long. This BIP therefore allows small block size adjustments already for smaller majorities than 80%, in 7 distinct steps from 55% to 90% majority.
 
