@@ -180,3 +180,5 @@ SPV wallets are not affected and require no change or update.
 [https://github.com/bitcoin/bips/blob/master/bip-0106.mediawiki Dynamically Controlled Bitcoin Block Size Max Cap] - BIP-106 by Upal Chakraborty
 
 [https://bitcointalk.org/index.php?topic=1078521.0 Elastic block cap with rollover penalties] - by Meni Rosenfeld
+
+[https://github.com/1MichaS1/BIP10X-Hybrid-Bitcoin-Block-Size-Limit-Adjustment A Hybrid Mechanism for Adaptively Adjusting Bitcoin's Block Size Limit] - BIP10X (inofficial) by Michael_S
