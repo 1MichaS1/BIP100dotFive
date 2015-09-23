@@ -2,6 +2,7 @@
  BIP: 100.5 (number inofficial)
  Title: Progressive BlockSizeLimit Vote + Def.Growth
  Author: Michael_S of bitcointalk.org
+ Discussions-To: https://bitcointalk.org/index.php?topic=1184877.msg12470813#msg12470813
  Status: Draft
  Type: Standards Track
  Created: 2015-09-20
