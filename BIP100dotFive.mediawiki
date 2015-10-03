@@ -31,12 +31,12 @@ This BIP proposes to replace the fixed 1 MB block size limit with an adaptive li
 ==Specification==
 
 # Replace static 1 MB block size hard limit with a floating limit ("hardLimit").
-# hardLimit floats within the range 1 MB..60.1 GB<br>(temporary limit might be put to 32 MB, to be removed in a later hard fork).
+# hardLimit floats within the range 1 MB..65.4 GB<br>(temporary limit might be put to 32 MB, to be removed in a later hard fork).
 # Initial value of hardLimit is 1 MB, preserving current system.
 # The parameters <nowiki>[P0, P55, P60, P65, P70, P75, P80, P90]</nowiki> are hard-coded as defined in the sub-section "Hard-Coded Parameters" below.
 # By default, hardLimit is increased by the factor P0 every 2016 blocks.
-# Desired hardLimit is voted for by encoding a proposed value as "uint8" within bits 16..23 of the 32-bit (bits 0..31) version number of the block header.
-## Votes refer to a byte value, encoded by an 8 bit value "V" as follows:<br>&nbsp;&nbsp;&nbsp;byte_value = floor(2^(V/16)*1,000,000),<br>where V is the 8-bit vote value out of <nowiki>[0..254]</nowiki>. V=255 is a special value and means "neutral vote".  
+# Desired hardLimit is voted for by encoding a proposed value as "uint8" within bits 11..23 of the 32-bit (bits 0..31) version number of the block header.
+## Votes refer to a byte value, encoded by a 13 bit value "V" as follows:<br>&nbsp;&nbsp;&nbsp;byte_value = floor(2^(V/512)*1,000,000),<br>where V is the 13-bit vote value out of <nowiki>[0..8191]</nowiki>. V=8192 is a special value and means "neutral vote".
 ## A new hardLimit is calculated at each difficulty adjustment period (2016 blocks), and applies to the next 2016 blocks.
 ## Calculation:
 *** "Neutral votes" are counted as votes for the default hardLimit increase, i.e. they are counted as votes for current_hardLimit*P0.
@@ -138,7 +138,7 @@ Hence the default growth rate of this BIP is not considered to be a very critica
 
 ====Signaling the Vote in the Block Header's Version Number Field====
 
-The signaling format is simple and yet very efficient in usage of bit space in the block header. It achieves a voting granularity of 4.4% step increments, which is fine enough, and a range from 1 MB to 60.1 GB, which is fully future safe.
+The signaling format is simple and yet very efficient in usage of bit space in the block header. It achieves a voting granularity of 0.14% step increments, which is fine enough, and a range from 1 MB to 65.4 GB, which is fully future safe.
 
 The reason for putting the vote into the block header rather than into the block's coinbase scriptSig (like in BIP-100) is given by Gavin Andresen in his BIP-101 proposal's comment on BIP-100:
 
@@ -146,7 +146,7 @@ The reason for putting the vote into the block header rather than into the block
 
 With this BIP's approach to include the vote in the header's version number field, this disadvantage is avoided.
 
-The version number field itself has 32 bits, which is much more than what is actually needed. Hence, one unused byte of this field is used for this BIP's purposes without any negative side effects.
+The version number field itself has 32 bits, which is much more than what is actually needed. Hence, 13 unused bits of this field is used for this BIP's purposes without any negative side effects.
 
 
 ==Deployment (same as BIP-100)==
