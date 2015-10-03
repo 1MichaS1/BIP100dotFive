@@ -69,8 +69,8 @@ This BIP proposes to replace the fixed 1 MB block size limit with an adaptive li
 *** If Lower_65 < tmp, set tmp = Lower_65 and force tmp to interval <nowiki>current_hardLimit*[P0*P65 ; P0/P65]</nowiki>.
 *** If Lower_70 < tmp, set tmp = Lower_70 and force tmp to interval <nowiki>current_hardLimit*[P0*P70 ; P0/P70]</nowiki>.
 *** If Lower_75 < tmp, set tmp = Lower_75 and force tmp to interval <nowiki>current_hardLimit*[P0*P75 ; P0/P75]</nowiki>.
-*** If Raise_80 < tmp, set tmp = Lower_80 and force tmp to interval <nowiki>current_hardLimit*[P0*P80 ; P0/P80]</nowiki>.
-*** If Raise_90 < tmp, set tmp = Lower_90 and force tmp to interval <nowiki>current_hardLimit*[P0*P90 ; P0/P90]</nowiki>.
+*** If Lower_80 < tmp, set tmp = Lower_80 and force tmp to interval <nowiki>current_hardLimit*[P0*P80 ; P0/P80]</nowiki>.
+*** If Lower_90 < tmp, set tmp = Lower_90 and force tmp to interval <nowiki>current_hardLimit*[P0*P90 ; P0/P90]</nowiki>.
 *** Assign new current_hardLimit = tmp
 
 ====Hard-Coded Parameters====
