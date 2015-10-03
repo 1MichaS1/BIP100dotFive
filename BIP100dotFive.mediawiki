@@ -56,21 +56,21 @@ This BIP proposes to replace the fixed 1 MB block size limit with an adaptive li
 *** Value Lower_80 is defined as the 1613th lowest vote from the sorted list of 2,016 votes (80th percentile).
 *** Value Lower_90 is defined as the 1815th lowest vote from the sorted list of 2,016 votes (90th percentile).
 *** Assign temporary variable tmp = current_hardLimit*P0
-*** Perform the following IF conditions in order:
-*** If Raise_55 > tmp, then set tmp = Raise_55 and force tmp into the interval <nowiki>[P0*P55 ; P0/P55]</nowiki>.
-*** If Raise_60 > tmp, then set tmp = Raise_60 and force tmp into the interval <nowiki>[P0*P60 ; P0/P60]</nowiki>.
-*** If Raise_65 > tmp, then set tmp = Raise_65 and force tmp into the interval <nowiki>[P0*P65 ; P0/P65]</nowiki>.
-*** If Raise_70 > tmp, then set tmp = Raise_70 and force tmp into the interval <nowiki>[P0*P70 ; P0/P70]</nowiki>.
-*** If Raise_75 > tmp, then set tmp = Raise_75 and force tmp into the interval <nowiki>[P0*P75 ; P0/P75]</nowiki>.
-*** If Raise_80 > tmp, then set tmp = Raise_80 and force tmp into the interval <nowiki>[P0*P80 ; P0/P80]</nowiki>.
-*** If Raise_90 > tmp, then set tmp = Raise_90 and force tmp into the interval <nowiki>[P0*P90 ; P0/P90]</nowiki>.
-*** If Lower_55 < tmp, then set tmp = Lower_55 and force tmp into the interval <nowiki>[P0*P55 ; P0/P55]</nowiki>.
-*** If Lower_60 < tmp, then set tmp = Lower_60 and force tmp into the interval <nowiki>[P0*P60 ; P0/P60]</nowiki>.
-*** If Lower_65 < tmp, then set tmp = Lower_65 and force tmp into the interval <nowiki>[P0*P65 ; P0/P65]</nowiki>.
-*** If Lower_70 < tmp, then set tmp = Lower_70 and force tmp into the interval <nowiki>[P0*P70 ; P0/P70]</nowiki>.
-*** If Lower_75 < tmp, then set tmp = Lower_75 and force tmp into the interval <nowiki>[P0*P75 ; P0/P75]</nowiki>.
-*** If Raise_80 < tmp, then set tmp = Lower_80 and force tmp into the interval <nowiki>[P0*P80 ; P0/P80]</nowiki>.
-*** If Raise_90 < tmp, then set tmp = Lower_90 and force tmp into the interval <nowiki>[P0*P90 ; P0/P90]</nowiki>.
+*** Perform the following IF conditions in order:+
+*** If Raise_55 > tmp, then set tmp = Raise_55 and force tmp to interval <nowiki>current_hardLimit*[P0*P55 ; P0/P55]</nowiki>.
+*** If Raise_60 > tmp, then set tmp = Raise_60 and force tmp to interval <nowiki>current_hardLimit*[P0*P60 ; P0/P60]</nowiki>.
+*** If Raise_65 > tmp, then set tmp = Raise_65 and force tmp to interval <nowiki>current_hardLimit*[P0*P65 ; P0/P65]</nowiki>.
+*** If Raise_70 > tmp, then set tmp = Raise_70 and force tmp to interval <nowiki>current_hardLimit*[P0*P70 ; P0/P70]</nowiki>.
+*** If Raise_75 > tmp, then set tmp = Raise_75 and force tmp to interval <nowiki>current_hardLimit*[P0*P75 ; P0/P75]</nowiki>.
+*** If Raise_80 > tmp, then set tmp = Raise_80 and force tmp to interval <nowiki>current_hardLimit*[P0*P80 ; P0/P80]</nowiki>.
+*** If Raise_90 > tmp, then set tmp = Raise_90 and force tmp to interval <nowiki>current_hardLimit*[P0*P90 ; P0/P90]</nowiki>.
+*** If Lower_55 < tmp, then set tmp = Lower_55 and force tmp to interval <nowiki>current_hardLimit*[P0*P55 ; P0/P55]</nowiki>.
+*** If Lower_60 < tmp, then set tmp = Lower_60 and force tmp to interval <nowiki>current_hardLimit*[P0*P60 ; P0/P60]</nowiki>.
+*** If Lower_65 < tmp, then set tmp = Lower_65 and force tmp to interval <nowiki>current_hardLimit*[P0*P65 ; P0/P65]</nowiki>.
+*** If Lower_70 < tmp, then set tmp = Lower_70 and force tmp to interval <nowiki>current_hardLimit*[P0*P70 ; P0/P70]</nowiki>.
+*** If Lower_75 < tmp, then set tmp = Lower_75 and force tmp to interval <nowiki>current_hardLimit*[P0*P75 ; P0/P75]</nowiki>.
+*** If Raise_80 < tmp, then set tmp = Lower_80 and force tmp to interval <nowiki>current_hardLimit*[P0*P80 ; P0/P80]</nowiki>.
+*** If Raise_90 < tmp, then set tmp = Lower_90 and force tmp to interval <nowiki>current_hardLimit*[P0*P90 ; P0/P90]</nowiki>.
 *** Assign new current_hardLimit = tmp
 
 ====Hard-Coded Parameters====
@@ -88,7 +88,7 @@ This BIP specifies the following parameters for block size limit adjustment step
 Illustration of maximum possible change of block size limit on top of default growth rate, depending on miner vote majority (percentage in log scale):
 <img src=https://cloud.githubusercontent.com/assets/14133304/9979188/e26c133a-5f5e-11e5-8946-f6c848606c9c.png></img>
 
-Possible block size limit evolutions for certain minor majorities (for comparison the growth rates of 17.7% and 41.4% are included) - log scale:
+Possible block size limit evolutions for certain miner majorities (for comparison the growth rates of 17.7% and 41.4% are included) - log scale:
 <img src=https://cloud.githubusercontent.com/assets/14133304/9979456/1c47d86e-5f6e-11e5-9bdb-5ce4a26def49.png></img>
 
 
