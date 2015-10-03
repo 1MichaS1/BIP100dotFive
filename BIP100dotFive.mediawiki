@@ -36,7 +36,7 @@ This BIP proposes to replace the fixed 1 MB block size limit with an adaptive li
 # The parameters <nowiki>[P0, P55, P60, P65, P70, P75, P80, P90]</nowiki> are hard-coded as defined in the sub-section "Hard-Coded Parameters" below.
 # By default, hardLimit is increased by the factor P0 every 2016 blocks.
 # Desired hardLimit is voted for by encoding a proposed value as "uint8" within bits 16..23 of the 32-bit (bits 0..31) version number of the block header.
-## Votes refer to a byte value, encoded by an 8 bit value "V" as follows:<br>&nbsp;&nbsp;&nbsp;byte_value = floor(2^(V/16)*1,000,000),<br>where V is the 8-bit vote value from 0..254. V=255 is a special value and means "neutral vote".  
+## Votes refer to a byte value, encoded by an 8 bit value "V" as follows:<br>&nbsp;&nbsp;&nbsp;byte_value = floor(2^(V/16)*1,000,000),<br>where V is the 8-bit vote value out of <nowiki>[0..254]</nowiki>. V=255 is a special value and means "neutral vote".  
 ## A new hardLimit is calculated at each difficulty adjustment period (2016 blocks), and applies to the next 2016 blocks.
 ## Calculation:
 *** "Neutral votes" are counted as votes for the default hardLimit increase, i.e. they are counted as votes for current_hardLimit*P0.
