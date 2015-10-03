@@ -13,7 +13,7 @@
 
 ==Abstract==
 
-This BIP proposes to replace the fixed 1 MB block size limit with an adaptive limit that can float between 1&nbsp;MB and 61&nbsp;GB (temporarily 1..32&nbsp;MB) based on a default growth rate and miner voting. This combines the merits of BIP-100 and BIP-101 within a new generalized mechanism. Both BIP-100 and BIP-101 can be considered special cases of this BIP, depending on the choice of hard-coded parameters.
+This BIP proposes to replace the fixed 1 MB block size limit with an adaptive limit that can float between 1&nbsp;MB and 65&nbsp;GB (temporarily 1..32&nbsp;MB) based on a default growth rate and miner voting. This combines the merits of BIP-100 and BIP-101 within a new generalized mechanism. Both BIP-100 and BIP-101 can be considered special cases of this BIP, depending on the choice of hard-coded parameters.
 
 ==Motivation==
 
