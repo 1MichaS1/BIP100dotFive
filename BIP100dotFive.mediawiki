@@ -31,7 +31,7 @@ This BIP proposes to replace the fixed 1 MB block size limit with an adaptive li
 ==Specification==
 
 # Replace static 1 MB block size hard limit with a floating limit ("hardLimit").
-# hardLimit floats within the range 1 MB..65.4 GB<br>(temporary limit might be put to 32 MB, to be removed in a later hard fork).
+# hardLimit floats within the range 1 MB..65.36 GB<br>(temporary limit might be put to 32 MB, to be removed in a later hard fork).
 # Initial value of hardLimit is 1 MB, preserving current system.
 # The parameters <nowiki>[P0, P55, P60, P65, P70, P75, P80, P90]</nowiki> are hard-coded as defined in the sub-section "Hard-Coded Parameters" below.
 # By default, hardLimit is increased by the factor P0 every 2016 blocks.
@@ -138,7 +138,7 @@ Hence the default growth rate of this BIP is not considered to be a very critica
 
 ====Signaling the Vote in the Block Header's Version Number Field====
 
-The signaling format is simple and yet very efficient in usage of bit space in the block header. It achieves a voting granularity of 0.14% step increments, which is fine enough, and a range from 1 MB to 65.4 GB, which is fully future safe.
+The signaling format is simple and yet very efficient in usage of bit space in the block header. It achieves a voting granularity of 0.14% step increments, which is fine enough, and a range from 1 MB to 65.36 GB, which is fully future safe.
 
 The reason for putting the vote into the block header rather than into the block's coinbase scriptSig (like in BIP-100) is given by Gavin Andresen in his BIP-101 proposal's comment on BIP-100:
 
