@@ -25,7 +25,7 @@ This BIP proposes to replace the fixed 1 MB block size limit with an adaptive li
 # Execute a hard fork network upgrade within safety rails, gathering data and experience for future upgrades.
 # Contain checks-and-balances that users must opt into, to enable system activation and growth.
 # Built-in default growth momentum to help keep Bitcoin in the most decentralized operational area if votes are "undecided".
-# Default growth rate of +1.09% per 2 weeks = +32.5% p.a. = +100% per 2.5 years, to account for technological progress in internet bandwidth and storage. In the presence of too many undecided/passive miners, the system should at least partly grow along with technological advances, to avoid a deadlock and a change of the system to the worse. Note that actual long-term growth of internet bandwidth is more in the area of 50% p.a. acc. to [http://www.nngroup.com/articles/law-of-bandwidth Nielssen's law of internet bandwidth]
+# Default growth rate of +1.09% per 2 weeks = +32.6% p.a. = +100% per 2.5 years, to account for technological progress in internet bandwidth and storage. In the presence of too many undecided/passive miners, the system should at least partly grow along with technological advances, to avoid a deadlock and a change of the system to the worse. Note that actual long-term growth of internet bandwidth is more in the area of 50% p.a. acc. to [http://www.nngroup.com/articles/law-of-bandwidth Nielssen's law of internet bandwidth]
 # Adaptive growth: A small..large majority (55%..90%) is required to deviate from the default growth rate a little..a lot, thereby avoiding a permanent deadlock if miner majority fails to reach a required limit.
 
 ==Specification==
@@ -75,21 +75,58 @@ This BIP proposes to replace the fixed 1 MB block size limit with an adaptive li
 
 ====Hard-Coded Parameters====
 This BIP specifies the following parameters for block size limit adjustment steps:
-* <tt>P0&nbsp; = 2^(  8/512) [~1.0109]: Default growth factor of block size limit per 2016 blocks</tt><br><tt><nowiki>[+32.5% p.a.]</nowiki></tt>
-* <tt>P55 = 2^(  1/512) [~1.0014]: Maximum factor on top of P0, for vote majority of 55%</tt><br><tt><nowiki>[55% majority can force growth to be between +27.9% .. +37.3% p.a.]</nowiki></tt>
-* <tt>P60 = 2^(  3/512) [~1.0041]: Maximum factor on top of P0, for vote majority of 60%</tt><br><tt><nowiki>[60% majority can force growth to be between +19.2% .. +47.3% p.a.]</nowiki></tt>
-* <tt>P65 = 2^(  8/512) [~1.0109]: Maximum factor on top of P0, for vote majority of 65%</tt><br><tt><nowiki>[65% majority can force growth to be between +0.0% .. +75.6% p.a.]</nowiki></tt>
-* <tt>P70 = 2^( 20/512) [~1.0274]: Maximum factor on top of P0, for vote majority of 70%</tt><br><tt><nowiki>[70% majority can force growth to be between -34.4% .. +167.9% p.a.]</nowiki></tt>
-* <tt>P75 = 2^( 42/512) [~1.0585]: Maximum factor on top of P0, for vote majority of 75%</tt><br><tt><nowiki>[75% majority can force growth to be between -69.8% .. x5.81 p.a.]</nowiki></tt>
-* <tt>P80 = 2^( 71/512) [~1.1009]: Maximum factor on top of P0, for vote majority of 80%</tt><br><tt><nowiki>[80% majority can force growth to be between -89.1% .. x16.1 p.a.]</nowiki></tt>
-* <tt>P90 = 2^(135/512) [~1.2005]: Maximum factor on top of P0, for vote majority of 90%</tt><br><tt><nowiki>[90% majority can force growth to be between -98.9% .. x153.5 p.a.]</nowiki></tt>
-</tt>
+* <tt>P0&nbsp; = 2^(  8/512) [~1.0109]: Default growth factor of block size limit per 2016 blocks</tt><br><tt><nowiki>[+32.6% p.a.]</nowiki></tt>
+* <tt>P55 = 2^(  1/512) [~1.0014]: Maximum factor on top of P0, for vote majority of 55%</tt><br><tt><nowiki>[55% majority can force growth to be between +28.0% .. +37.4% p.a.]</nowiki></tt>
+* <tt>P60 = 2^(  3/512) [~1.0041]: Maximum factor on top of P0, for vote majority of 60%</tt><br><tt><nowiki>[60% majority can force growth to be between +19.3% .. +47.5% p.a.]</nowiki></tt>
+* <tt>P65 = 2^(  8/512) [~1.0109]: Maximum factor on top of P0, for vote majority of 65%</tt><br><tt><nowiki>[65% majority can force growth to be between +0.0% .. +76.0% p.a.]</nowiki></tt>
+* <tt>P70 = 2^( 20/512) [~1.0274]: Maximum factor on top of P0, for vote majority of 70%</tt><br><tt><nowiki>[70% majority can force growth to be between -34.5% .. +168.8% p.a.]</nowiki></tt>
+* <tt>P75 = 2^( 42/512) [~1.0585]: Maximum factor on top of P0, for vote majority of 75%</tt><br><tt><nowiki>[75% majority can force growth to be between -69.9% .. x5.85 p.a.]</nowiki></tt>
+* <tt>P80 = 2^( 71/512) [~1.1009]: Maximum factor on top of P0, for vote majority of 80%</tt><br><tt><nowiki>[80% majority can force growth to be between -89.2% .. x16.3 p.a.]</nowiki></tt>
+* <tt>P90 = 2^(135/512) [~1.2005]: Maximum factor on top of P0, for vote majority of 90%</tt><br><tt><nowiki>[90% majority can force growth to be between -98.9% .. x156.2 p.a.]</nowiki></tt>
+
 
 Illustration of maximum possible change of block size limit on top of default growth rate, depending on miner vote majority (percentage in log scale):
 <img src=https://cloud.githubusercontent.com/assets/14133304/9979188/e26c133a-5f5e-11e5-8946-f6c848606c9c.png></img>
 
 Possible block size limit evolutions for certain miner majorities (for comparison the growth rates of 17.7% and 41.4% are included) - log scale:
 <img src=https://cloud.githubusercontent.com/assets/14133304/9979456/1c47d86e-5f6e-11e5-9bdb-5ce4a26def49.png></img>
+
+
+====Hard-Coded Parameters - "BIP-100.5 - Option 2" (for Discussion)====
+It can be critizised that the parameter set above may lead to a situation where a significant majority of 64.9% of miners is against any block size increase, yet block size could increase by +19.3% p.a. (or +0.68% per 2 weeks). Similarly, if a majority of 59.9% of miners is against any block size limit increase, it may still increase by +28.0% p.a. (+0.95% per 2 weeks). And if a smaller yet significant majority of 54.9% of miners is against any block size limit increase, it may even increase by +32.6% p.a. (+1.09% per 2 weeks).
+
+If such a situation persisted for a longer period of time, the *intended* block size limit of the miner majority and the *actual* block size limit of the protocol would more and more *diverge*. This may lead to tensions in the consensus system, because blocks can become (significantly) larger than what the miner majority desires. If such tensions grow too big (say factor 2 to 3 or more between "wanted" and "actual" block size limit, which may happen after ca. 3-5 years at earliest), a miner majority cartel may decide to "bypass" the protocol's block size limit by (secretly or openly) collaborating in rejecting any blocks greater than "what_they_consider_a_good_limit". As a result, any block greater than that proclaimed limit would get orphaned (technically like in a 51% attack), so the miner minority would be forced to produce smaller blocks as well to ensure that they stay in the longest chain. Hence, the protocol's calculated block size limit would become de-facto irrelevant.
+
+For this to happen, two conditions must be fulfilled:
+
+* First, the gap between the protocol's block size limit and miner majority's desired max block size must be sufficiently large (say factor 2-3 at least) before there is enough incentive for the miners to start such an action. As said above, this cannot happen before 3-5 years after a start situation where the miner majority is happy.
+
+* Secondly, the miner majority percentage wanting smaller blocks than the protocol's limit must be significantly and sustainably above 50% for this "51% attack" kind of action to be successful. One could argue that a 54.9% or 59.9% or 64.9% majority might be sufficient for this.
+
+To rule out this conflict altogether, very strictly speaking the protocol rules should be designed to make any block size limit increase against a 51% majority impossible. This could be simply achieved by changing the parameter P0 to set it to **P0=0**. This would ensure that no block size limit increase occurs unless at least a 55% majority is in favor of it.
+
+However, we consider such an approach a bit too conservative, even though it is still more flexible than BIP-100 with it's 80% requirement for any change to happen. Instead, we propose another option for the parameterization that takes account of this concern but still has a small, very conservative, default growth rate built-in:
+
+  **Proposal Option 2: Set P0 = 1.0041, i.e. default block size limit growth = +11.1% p.a. = x2 in 6.5 years or x3 in 10.5 years.**
+
+With this proposal, the potential theoretical "tensions" get reduced as follows:
+
+* A majority of 59.9% of miners is against any block size increase, yet block size could increase by +7.3% p.a. (or +0.27% per 2 weeks, x2 in 10 years, x3 in 16 years).
+
+* A majority of 54.9% of miners is against any block size increase, yet block size could increase by +11.1% p.a. (or +0.41% per 2 weeks, x2 in 6.5 years, x3 in 10.5 years).
+
+This would take 10 or 16 years to achieve a factor 2 or 3 discrepency against a 59.9% miner majority, and a still 6.5 or 10.5 years to achieve a factor 2 or 3 discrepency against a 54.9% miner majority.
+
+In summary, the THEORETICAL risk of causing "tensions" between protocol's block size limit and miner majority's desired max. block size is very limited. Note that an 11.1% yearly increase is far below any estimates of technological growth for storage or bandwidth evolutions, so the de-facto tensions to be expected should be clearly zero (unless a miner majority wants to grow the block size limit significantly slower than technological progress). The outcome would then look like this:
+
+* <tt>P0&nbsp; = 2^(  3/512) [~1.0041]: Default growth factor of block size limit per 2016 blocks</tt><br><tt><nowiki>[+11.1% p.a.]</nowiki></tt>
+* <tt>P55 = 2^(  1/512) [~1.0014]: Maximum factor on top of P0, for vote majority of 55%</tt><br><tt><nowiki>[55% majority can force growth to be between +7.3% .. +15.2% p.a.]</nowiki></tt>
+* <tt>P60 = 2^(  3/512) [~1.0041]: Maximum factor on top of P0, for vote majority of 60%</tt><br><tt><nowiki>[60% majority can force growth to be between +0.0% .. +23.6% p.a.]</nowiki></tt>
+* <tt>P65 = 2^(  8/512) [~1.0109]: Maximum factor on top of P0, for vote majority of 65%</tt><br><tt><nowiki>[65% majority can force growth to be between -16.2% .. +47.5% p.a.]</nowiki></tt>
+* <tt>P70 = 2^( 20/512) [~1.0274]: Maximum factor on top of P0, for vote majority of 70%</tt><br><tt><nowiki>[70% majority can force growth to be between -45.1% .. +125.3% p.a.]</nowiki></tt>
+* <tt>P75 = 2^( 42/512) [~1.0585]: Maximum factor on top of P0, for vote majority of 75%</tt><br><tt><nowiki>[75% majority can force growth to be between -74.8% .. x4.90 p.a.]</nowiki></tt>
+* <tt>P80 = 2^( 71/512) [~1.1009]: Maximum factor on top of P0, for vote majority of 80%</tt><br><tt><nowiki>[80% majority can force growth to be between -90.9% .. x13.6 p.a.]</nowiki></tt>
+* <tt>P90 = 2^(135/512) [~1.2005]: Maximum factor on top of P0, for vote majority of 90%</tt><br><tt><nowiki>[90% majority can force growth to be between -99.1% .. x130.9 p.a.]</nowiki></tt>
 
 
 ==Rationale==
@@ -132,7 +169,7 @@ As time passes, the bathtub curve will naturally move to the right for two reaso
 
 Clearly, the miner voting can cause the growth rate to change in either direction. With the proposed hard-coded parameters, a 65% majority can pull growth rate to zero, and a 70% majority can even cause a negative growth rate.
 
-The default growth rate hence follows the same idea as [https://github.com/bitcoin/bips/blob/master/bip-0101.mediawiki BIP-101 (41.4% p.a.)] or [https://gist.github.com/sipa/c65665fc360ca7a176a6 BIP-(103?) (17.7% p.a.)], while an intermediate value of 32.5% p.a. is proposed for this BIP. The disadvantage of BIP-101 and BIP-(103?) is that they try to predict what is the best growth rate for all future. Since neither technological progress nor user adoption and evolutions of the eco-system can be predicted from now into all future, such predictions are prone to errors, possibly requiring further hard-forks (with accompanying discussions) in the future. This BIP instead allows to correct the default growth path by simple miner majority votes.
+The default growth rate hence follows the same idea as [https://github.com/bitcoin/bips/blob/master/bip-0101.mediawiki BIP-101 (41.4% p.a.)] or [https://gist.github.com/sipa/c65665fc360ca7a176a6 BIP-(103?) (17.7% p.a.)], while an intermediate value of 32.6% p.a. is proposed for this BIP. The disadvantage of BIP-101 and BIP-(103?) is that they try to predict what is the best growth rate for all future. Since neither technological progress nor user adoption and evolutions of the eco-system can be predicted from now into all future, such predictions are prone to errors, possibly requiring further hard-forks (with accompanying discussions) in the future. This BIP instead allows to correct the default growth path by simple miner majority votes.
 
 Hence the default growth rate of this BIP is not considered to be a very critical parameter, because unlike with BIP-101 and BIP-(103?), a wrong estimation of future growth rates in technology and/or user adoption has no blocking effect on the Bitcoin protocol thanks to the power of miner voting.
 
