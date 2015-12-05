@@ -129,6 +129,22 @@ In summary, the THEORETICAL risk of causing "tensions" between protocol's block 
 * <tt>P90 = 2^(135/512) [~1.2005]: Maximum factor on top of P0, for vote majority of 90%</tt><br><tt><nowiki>[90% majority can force growth to be between -99.1% .. x130.9 p.a.]</nowiki></tt>
 
 
+====Hard-Coded Parameters - "BIP-100.5 - Option 3" (for Discussion)====
+According to the discussion in previous section ("Option 2"), an utmost conservative parameter choice is to set '''P0=0'''. We refer to this as "Option 3". This completely eliminates any default growth and thereby avoids any change (and particularly: increase) of block size limit unless a qualified miner majority (>=55%) is in favor of it.
+
+The result then looks like this:
+
+* <tt>P0&nbsp; = 2^(  0/512) [~1.0000]: Default growth factor of block size limit per 2016 blocks</tt><br><tt><nowiki>[+0.0% p.a.]</nowiki></tt>
+* <tt>P55 = 2^(  1/512) [~1.0014]: Maximum factor on top of P0, for vote majority of 55%</tt><br><tt><nowiki>[55% majority can force growth to be between -3.5% .. +3.6% p.a.]</nowiki></tt>
+* <tt>P60 = 2^(  3/512) [~1.0041]: Maximum factor on top of P0, for vote majority of 60%</tt><br><tt><nowiki>[60% majority can force growth to be between -10.0% .. +11.2% p.a.]</nowiki></tt>
+* <tt>P65 = 2^(  8/512) [~1.0109]: Maximum factor on top of P0, for vote majority of 65%</tt><br><tt><nowiki>[65% majority can force growth to be between -24.6% .. +32.6% p.a.]</nowiki></tt>
+* <tt>P70 = 2^( 20/512) [~1.0274]: Maximum factor on top of P0, for vote majority of 70%</tt><br><tt><nowiki>[70% majority can force growth to be between -50.7% .. +102.7% p.a.]</nowiki></tt>
+* <tt>P75 = 2^( 42/512) [~1.0585]: Maximum factor on top of P0, for vote majority of 75%</tt><br><tt><nowiki>[75% majority can force growth to be between -77.3% .. x4.41 p.a.]</nowiki></tt>
+* <tt>P80 = 2^( 71/512) [~1.1009]: Maximum factor on top of P0, for vote majority of 80%</tt><br><tt><nowiki>[80% majority can force growth to be between -91.9% .. x12.3 p.a.]</nowiki></tt>
+* <tt>P90 = 2^(135/512) [~1.2005]: Maximum factor on top of P0, for vote majority of 90%</tt><br><tt><nowiki>[90% majority can force growth to be between -99.1% .. x117.7 p.a.]</nowiki></tt>
+
+
+
 ==Rationale==
 
 ====Voting and Default Growth Rate====
