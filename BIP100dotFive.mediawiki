@@ -103,7 +103,7 @@ For this to happen, two conditions must be fulfilled:
 
 * Secondly, the miner majority percentage wanting smaller blocks than the protocol's limit must be significantly and sustainably above 50% for this "51% attack" kind of action to be successful. One could argue that a 54.9% or 59.9% or 64.9% majority might be sufficient for this.
 
-To rule out this conflict altogether, very strictly speaking the protocol rules should be designed to make any block size limit increase against a 51% majority impossible. This could be simply achieved by changing the parameter P0 to set it to **P0=0**. This would ensure that no block size limit increase occurs unless at least a 55% majority is in favor of it.
+To rule out this conflict altogether, very strictly speaking the protocol rules should be designed to make any block size limit increase against a 51% majority impossible. This could be simply achieved by changing the parameter P0 to set it to '''P0=0'''. This would ensure that no block size limit increase occurs unless at least a 55% majority is in favor of it.
 
 However, we consider such an approach a bit too conservative, even though it is still more flexible than BIP-100 with it's 80% requirement for any change to happen. Instead, we propose another option for the parameterization that takes account of this concern but still has a small, very conservative, default growth rate built-in:
 
