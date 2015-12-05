@@ -107,7 +107,7 @@ To rule out this conflict altogether, very strictly speaking the protocol rules 
 
 However, we consider such an approach a bit too conservative, even though it is still more flexible than BIP-100 with it's 80% requirement for any change to happen. Instead, we propose another option for the parameterization that takes account of this concern but still has a small, very conservative, default growth rate built-in:
 
-  **Proposal Option 2: Set P0 = 1.0041, i.e. default block size limit growth = +11.1% p.a. = x2 in 6.5 years or x3 in 10.5 years.**
+'''Proposal Option 2: Set P0 = 1.0041, i.e. default block size limit growth = +11.1% p.a. = x2 in 6.5 years or x3 in 10.5 years.'''
 
 With this proposal, the potential theoretical "tensions" get reduced as follows:
 
