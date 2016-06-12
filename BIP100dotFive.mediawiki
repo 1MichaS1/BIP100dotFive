@@ -1,5 +1,5 @@
 <pre>
- BIP: 100.5 (number inofficial)
+ BIP: 100.5 (number unofficial)
  Title: Progressive BlockSizeLimit Vote + Def.Growth
  Author: Michael_S of bitcointalk.org
  Discussions-To: https://bitcointalk.org/index.php?topic=1184877.msg12470813#msg12470813
@@ -237,7 +237,7 @@ SPV wallets are not affected and require no change or update.
 
 [https://bitcointalk.org/index.php?topic=1078521.0 Elastic block cap with rollover penalties] - by Meni Rosenfeld
 
-[https://github.com/1MichaS1/BIP10X-Hybrid-Bitcoin-Block-Size-Limit-Adjustment A Hybrid Mechanism for Adaptively Adjusting Bitcoin's Block Size Limit] - BIP10X (inofficial) by Michael_S
+[https://github.com/1MichaS1/BIP10X-Hybrid-Bitcoin-Block-Size-Limit-Adjustment A Hybrid Mechanism for Adaptively Adjusting Bitcoin's Block Size Limit] - BIP10X (unofficial) by Michael_S
 
 ==See also==
 
